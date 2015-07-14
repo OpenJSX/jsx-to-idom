@@ -1,0 +1,23 @@
+{
+  "name": "jsx-to-idom",
+  "version": "1.1.0",
+  "description": "JSX-IR renderer for Incremental DOM",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha tests/test.js"
+  },
+  "author": "Arthur Stolyar <nekr.fabula@gmail.com>",
+  "license": "MIT",
+  "repository": "jsx-ir/jsx-to-idom",
+  "peerDependencies": {
+    "incremental-dom": "^0.1.0"
+  },
+  "dependencies": {
+    "babel-plugin-jsx": "^1.1.0",
+    "jsx-runtime": "^1.1.0",
+  },
+  "devDependencies": {
+    "babel-core": "^5.6.20",
+    "mocha": "^2.2.5"
+  }
+}
