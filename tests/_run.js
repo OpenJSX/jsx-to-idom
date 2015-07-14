@@ -1,3 +1,5 @@
+"use strict";
+
 var runtime = require('./_get-runtime.js')();
 var _mockdom = require('./_mockdom');
 

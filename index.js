@@ -1,3 +1,5 @@
+"use strict";
+
 var jsx = require('jsx-runtime');
 var idom = typeof _mockdom !== 'undefined' ? _mockdom : require('incremental-dom');
 var hasOwn = Object.prototype.hasOwnProperty;
