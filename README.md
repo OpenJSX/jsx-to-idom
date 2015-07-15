@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jsx-ir/jsx-to-idom.svg?branch=master)](https://travis-ci.org/jsx-ir/jsx-to-idom)
+
 ## Incremental DOM Renderer for JSX-IR
 
 ### Installation
