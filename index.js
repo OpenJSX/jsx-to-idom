@@ -19,14 +19,11 @@ var renderer = jsx.register('DOM', {
         openStart(tag);
 
         if (props) {
-          for (var key in props) {
-            if (!hasOwn.call(props, key)) continue;
-
-            attr(key, props[key]);
-          }
+          handleProps(props);
         }
 
         openEnd();
+
         return element;
       },
       leave: function(parent, tag) {
@@ -47,3 +44,16 @@ var renderer = jsx.register('DOM', {
 });
 
 module.exports = renderer;
+
+function handleProps(props) {
+  for (var key in props) {
+    if (!hasOwn.call(props, key)) continue;
+
+    var val = props[key];
+
+    if (key === 'className') key = 'class';
+    if (key === 'cssFor') key = 'for';
+
+    attr(key, val);
+  }
+}

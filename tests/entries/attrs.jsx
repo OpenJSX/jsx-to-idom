@@ -49,3 +49,35 @@ export var js_values = () => {
     }
   );
 };
+
+export var props_transformation = () => {
+  let elem = run(
+    <div className="test" cssFor="target"></div>
+  );
+
+  assert.deepEqual(
+    elem, {
+      tag: 'div',
+      attrs: {
+        'class': 'test',
+        'for': 'target'
+      }
+    }
+  );
+};
+
+export var identifier_attrs = () => {
+  let elem = run(
+    <div class="test" for="target"></div>
+  );
+
+  assert.deepEqual(
+    elem, {
+      tag: 'div',
+      attrs: {
+        'class': 'test',
+        'for': 'target'
+      }
+    }
+  );
+};
