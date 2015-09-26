@@ -1,6 +1,6 @@
 {
   "name": "jsx-to-idom",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "JSX-IR renderer for Incremental DOM",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": "jsx-ir/jsx-to-idom",
   "peerDependencies": {
-    "incremental-dom": "^0.1.0"
+    "incremental-dom": "^0.x"
   },
   "dependencies": {
     "babel-plugin-jsx": "^1.1.0",
