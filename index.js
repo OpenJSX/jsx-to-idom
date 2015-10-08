@@ -12,32 +12,82 @@ var attr = idom.attr;
 
 var element = {};
 
-var renderer = jsx.register('DOM', {
+var renderer = jsx.register('iDOM', {
+  before: function(tree) {
+    this.scope.calls = [];
+    return tree;
+  },
+
+  /*after: function(tree) {
+    var calls = this.scope.calls;
+
+    return function() {
+      calls.forEach(function(fn) { fn() });
+    };
+  },*/
+
+  render: function(render) {
+    // console.log('render 0');
+    var calls = this.scope.calls;
+    render();
+
+    return function() {
+      calls.forEach(function(fn) { fn() });
+    };
+  },
+
+  fragment: function() {
+    return element;
+  },
+
+  params: {
+    renderType: 'all',
+    updateType: 'fragment',
+  },
+
   tags: {
     '*': {
       enter: function(tag, props) {
-        openStart(tag);
+        this.scope.calls.push(function() {
+          openStart(tag);
 
-        if (props) {
-          handleProps(props);
-        }
+          if (props) {
+            handleProps(props);
+          }
 
-        openEnd();
+          openEnd();
+        });
 
         return element;
       },
       leave: function(parent, tag) {
-        close(tag);
+        this.scope.calls.push(function() {
+          close(tag);
+        });
+
         return parent;
       },
       child: function(child, parent) {
-        if (child === element) {
-          // do nothing
-        } else {
-          text(child + '');
-        }
+        this.scope.calls.push(function() {
+          if (child instanceof jsx.Stream) {
+            // debugger;
+            var render = child.get();
+            console.log('render:', render, render + '');
+            // fix stream, because right now function is used as getter
+            render(); // call returned function
+            return;
+          }
 
-        return parent;
+          if (child === element) {
+            console.log('child element');
+            // do nothing
+          } else {
+            console.log('child text:', child + '');
+            text(child + '');
+          }
+        });
+
+        return child;
       }
     }
   }
@@ -55,5 +105,13 @@ function handleProps(props) {
     if (key === 'cssFor') key = 'for';
 
     attr(key, val);
+  }
+}
+
+function handleChild(child) {
+  if (child === element) {
+    // do nothing
+  } else {
+    text(child + '');
   }
 }
